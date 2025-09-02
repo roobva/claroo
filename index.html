@@ -1,89 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deportivos</title>
-    <link rel="stylesheet" href="css/estilo1.css">
-    <script src="https://kit.fontawesome.com/e890b5bb12.js" crossorigin="anonymous"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LATAM — Cargando</title>
+  <style>
+    body {
+      margin:0;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family:Arial, sans-serif;
+      background:#071029;
+      color:#fff;
+    }
+    .container {
+      text-align:center;
+    }
+    .spinner {
+      margin:20px auto;
+      width:80px;height:80px;
+      border:10px solid rgba(255,255,255,0.2);
+      border-top:10px solid #ff3b3b;
+      border-radius:50%;
+      animation: spin 1.5s linear infinite;
+    }
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+    .progress {
+      margin:20px auto;
+      width:200px;height:10px;
+      background:rgba(255,255,255,0.2);
+      border-radius:999px;
+      overflow:hidden;
+    }
+    .bar {
+      width:0%;height:100%;
+      background:#ff3b3b;
+      transition:width .4s;
+    }
+  </style>
 </head>
+<body>
+  <div class="container">
+    <h1>LATAM cargando...</h1>
+    <div class="spinner"></div>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <p id="estado">Cargando ofertas...</p>
+  </div>
 
-<body class="principal">
+  <script>
+    const OFFERS_URL = "/ofertas/"; // 👈 carpeta local de destino
+    const bar = document.getElementById("bar");
+    const estado = document.getElementById("estado");
+    let pct = 0;
 
-    <header>
-
-        <nav>
-
-        </nav>
-    </header>
-
-
-
-    <center>
-        <p class="parrafo">Aquí en este sitio web puedes observar los mejores autos deportivos del mercado
-        </p>
-    </center>
-
-    <center>
-        <table>
-            <h1> Presentación </h1>
-            <tr>
-                <th>
-
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/zRT1hw_-0a8?si=cb6S6gj0w-GKlj6W"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </th>
-            </tr>
-        </table>
-        <center>
-
-
-        </center>
-
-
-        <table>
-            <h1> Video  carro </h1>
-            <tr>
-                <th>
-                    <br>
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/rvn4lHrr6AQ?si=TjrbApsjICP2khWH"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </th>
-            </tr>
-        </table>
-
-        <footer class="pie-pagina">
-            <div class="grupo-1">
-                <div class="box">
-                    <figure>
-                        <img src="imagen/deportivonegro.png" alt="Logo">
-                        </a>
-                    </figure>
-                </div>
-                <div class="box" id="Contactos">
-                    <h2>SOBRE NOSOTROS</h2>
-                    <P>ejemplo@gmail.com</P>
-                </div>
-                <div class="box">
-                    <h2>SÍGUENOS</h2>
-                    <div class="red-social" id="Sobre-nosotros">
-                        <a href="" class="fa fa-facebook"></a>
-                        <a href="" class="fa fa-instagram"></a>
-                        <a href="" class="fa fa-twitter"></a>
-                        <a href="" class="fa fa-youtube"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="grupo-2">
-                <small>&copy; 2023 <b>Deportive</b> - Todos los derechos reservados.</small>
-            </div>
-        </footer>
+    function avanzar(){
+      pct += Math.floor(Math.random()*15)+10;
+      if(pct > 100) pct = 100;
+      bar.style.width = pct + "%";
+      estado.textContent = pct < 100 ? "Cargando " + pct + "%" : "Listo, redirigiendo...";
+      if(pct >= 100){
+        setTimeout(()=> window.location.href = OFFERS_URL, 700);
+      } else {
+        setTimeout(avanzar, 600);
+      }
+    }
+    window.addEventListener("DOMContentLoaded", ()=> setTimeout(avanzar, 400));
+  </script>
 </body>
-
 </html>
